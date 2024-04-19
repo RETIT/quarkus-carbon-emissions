@@ -1,0 +1,506 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 1,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "webstore-metrics"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 10,
+        "x": 0,
+        "y": 0
+      },
+      "id": 3,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "webstore-metrics"
+          },
+          "editorMode": "builder",
+          "expr": "delta(testservice_cpu_time_milliseconds_total{httpmethod=\"GET\"}[1m])",
+          "hide": true,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "CPUDemandMSPerGET"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "webstore-metrics"
+          },
+          "editorMode": "builder",
+          "expr": "delta(testservice_memory_demand_kByte_total{httpmethod=\"GET\"}[1m])",
+          "hide": true,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "MemoryDemandkBytePerGET"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "webstore-metrics"
+          },
+          "editorMode": "builder",
+          "expr": "increase(cpu_co2_production_mg_total{region=\"eu_west_1\", provider=\"aws\"}[1m])",
+          "hide": true,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "CPUCO2DemandPerCoreMinute"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "webstore-metrics"
+          },
+          "editorMode": "builder",
+          "expr": "increase(memory_co2_production_mg_total{region=\"eu_west_1\", provider=\"aws\"}[1m])",
+          "hide": true,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "MemoryCO2DemandPerGBMinute"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "webstore-metrics"
+          },
+          "editorMode": "builder",
+          "expr": "delta(testservice_call_count_total{httpmethod=\"GET\"}[1m])",
+          "hide": true,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "CallCountPerGETOperation"
+        },
+        {
+          "datasource": {
+            "name": "Expression",
+            "type": "__expr__",
+            "uid": "__expr__"
+          },
+          "expression": "((($CPUDemandMSPerGET/1000)*($CPUCO2DemandPerCoreMinute/60))+(($MemoryDemandkBytePerGET/1000/1000)*($MemoryCO2DemandPerGBMinute/60)))/$CallCountPerGETOperation",
+          "hide": false,
+          "refId": "CO2DemandPerServiceInMG",
+          "type": "math"
+        }
+      ],
+      "title": "CO2Demand per Service GET Operation",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "webstore-metrics"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 10,
+        "x": 10,
+        "y": 0
+      },
+      "id": 4,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "webstore-metrics"
+          },
+          "editorMode": "builder",
+          "expr": "delta(testservice_cpu_time_milliseconds_total{httpmethod=\"POST\"}[1m])",
+          "hide": true,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "CPUDemandMSPerGET"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "webstore-metrics"
+          },
+          "editorMode": "builder",
+          "expr": "delta(testservice_memory_demand_kByte_total{httpmethod=\"POST\"}[1m])",
+          "hide": true,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "MemoryDemandkBytePerGET"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "webstore-metrics"
+          },
+          "editorMode": "builder",
+          "expr": "increase(cpu_co2_production_mg_total{region=\"eu_west_1\", provider=\"aws\"}[1m])",
+          "hide": true,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "CPUCO2DemandPerCoreMinute"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "webstore-metrics"
+          },
+          "editorMode": "builder",
+          "expr": "increase(memory_co2_production_mg_total{region=\"eu_west_1\", provider=\"aws\"}[1m])",
+          "hide": true,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "MemoryCO2DemandPerGBMinute"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "webstore-metrics"
+          },
+          "editorMode": "builder",
+          "expr": "delta(testservice_call_count_total{httpmethod=\"POST\"}[1m])",
+          "hide": true,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "CallCountPerPOSTOperation"
+        },
+        {
+          "datasource": {
+            "name": "Expression",
+            "type": "__expr__",
+            "uid": "__expr__"
+          },
+          "expression": "((($CPUDemandMSPerGET/1000)*($CPUCO2DemandPerCoreMinute/60))+(($MemoryDemandkBytePerGET/1000/1000)*($MemoryCO2DemandPerGBMinute/60)))/$CallCountPerPOSTOperation",
+          "hide": false,
+          "refId": "CO2DemandPerServiceInMG",
+          "type": "math"
+        }
+      ],
+      "title": "CO2Demand per Service POST Operation",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "webstore-metrics"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 10,
+        "x": 6,
+        "y": 7
+      },
+      "id": 2,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "webstore-metrics"
+          },
+          "editorMode": "builder",
+          "expr": "delta(testservice_cpu_time_milliseconds_total{httpmethod=\"DELETE\"}[1m])",
+          "hide": true,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "CPUDemandMSPerDELETE"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "webstore-metrics"
+          },
+          "editorMode": "builder",
+          "expr": "delta(testservice_memory_demand_kByte_total{httpmethod=\"DELETE\"}[1m])",
+          "hide": true,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "MemoryDemandkBytePerDELETE"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "webstore-metrics"
+          },
+          "editorMode": "builder",
+          "expr": "increase(cpu_co2_production_mg_total{region=\"eu_west_1\", provider=\"aws\"}[1m])",
+          "hide": true,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "CPUCO2DemandPerCoreMinute"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "webstore-metrics"
+          },
+          "editorMode": "builder",
+          "expr": "increase(memory_co2_production_mg_total{region=\"eu_west_1\", provider=\"aws\"}[1m])",
+          "hide": true,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "MemoryCO2DemandPerGBMinute"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "webstore-metrics"
+          },
+          "editorMode": "builder",
+          "expr": "delta(testservice_call_count_total{httpmethod=\"DELETE\"}[1m])",
+          "hide": true,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "CallCountPerDELETEOperation"
+        },
+        {
+          "datasource": {
+            "name": "Expression",
+            "type": "__expr__",
+            "uid": "__expr__"
+          },
+          "expression": "((($CPUDemandMSPerDELETE/1000)*($CPUCO2DemandPerCoreMinute/60))+(($MemoryDemandkBytePerDELETE/1000/1000)*($MemoryCO2DemandPerGBMinute/60)))/$CallCountPerDELETEOperation",
+          "hide": false,
+          "refId": "CO2DemandPerDELETEInMG",
+          "type": "math"
+        }
+      ],
+      "title": "CO2Demand per Service DELETE Operation",
+      "type": "timeseries"
+    }
+  ],
+  "refresh": "",
+  "revision": 1,
+  "schemaVersion": 38,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-5m",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "SCI Dashboard Service",
+  "uid": "c6bdAE94z",
+  "version": 1,
+  "weekStart": ""
+}
