@@ -39,6 +39,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -52,6 +53,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -91,7 +93,7 @@
         "x": 0,
         "y": 0
       },
-      "id": 3,
+      "id": 5,
       "options": {
         "legend": {
           "calcs": [],
@@ -110,60 +112,80 @@
             "type": "prometheus",
             "uid": "webstore-metrics"
           },
+          "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "delta(testservice_cpu_time_milliseconds_total{httpmethod=\"GET\"}[1m])",
+          "expr": "delta(cpu_demand_milliseconds_total{httpmethod=\"GET\", service_name=\"quarkus-carbon-emissions-testservice\", apicall=\"getData\"}[1m])",
+          "fullMetaSearch": false,
           "hide": true,
+          "includeNullMetadata": true,
           "legendFormat": "__auto",
           "range": true,
-          "refId": "CPUDemandMSPerGET"
+          "refId": "CPUDemandMSPerOperation",
+          "useBackend": false
         },
         {
           "datasource": {
             "type": "prometheus",
             "uid": "webstore-metrics"
           },
+          "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "delta(testservice_memory_demand_kByte_total{httpmethod=\"GET\"}[1m])",
+          "expr": "delta(memory_demand_kByte_total{httpmethod=\"GET\", apicall=\"getData\", service_name=\"quarkus-carbon-emissions-testservice\"}[1m])",
+          "fullMetaSearch": false,
           "hide": true,
+          "includeNullMetadata": true,
           "legendFormat": "__auto",
           "range": true,
-          "refId": "MemoryDemandkBytePerGET"
+          "refId": "MemoryDemandkBytePerOperation",
+          "useBackend": false
         },
         {
           "datasource": {
             "type": "prometheus",
             "uid": "webstore-metrics"
           },
+          "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "increase(cpu_co2_production_mg_total{region=\"eu_west_1\", provider=\"aws\"}[1m])",
+          "expr": "increase(cpu_co2_emissions_mg_total{region=\"eu_west_1\", provider=\"aws\"}[1m])",
+          "fullMetaSearch": false,
           "hide": true,
+          "includeNullMetadata": true,
           "legendFormat": "__auto",
           "range": true,
-          "refId": "CPUCO2DemandPerCoreMinute"
+          "refId": "CPUCO2EmissionsPerCoreMinute",
+          "useBackend": false
         },
         {
           "datasource": {
             "type": "prometheus",
             "uid": "webstore-metrics"
           },
+          "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "increase(memory_co2_production_mg_total{region=\"eu_west_1\", provider=\"aws\"}[1m])",
+          "expr": "increase(memory_co2_emissions_mg_total{region=\"eu_west_1\", provider=\"aws\"}[1m])",
+          "fullMetaSearch": false,
           "hide": true,
+          "includeNullMetadata": true,
           "legendFormat": "__auto",
           "range": true,
-          "refId": "MemoryCO2DemandPerGBMinute"
+          "refId": "MemoryCO2EmissionsPerGBMinute",
+          "useBackend": false
         },
         {
           "datasource": {
             "type": "prometheus",
             "uid": "webstore-metrics"
           },
+          "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "delta(testservice_call_count_total{httpmethod=\"GET\"}[1m])",
+          "expr": "delta(call_count_total{httpmethod=\"GET\", service_name=\"quarkus-carbon-emissions-testservice\", apicall=\"getData\"}[1m])",
+          "fullMetaSearch": false,
           "hide": true,
+          "includeNullMetadata": true,
           "legendFormat": "__auto",
           "range": true,
-          "refId": "CallCountPerGETOperation"
+          "refId": "CallCountPerOperation",
+          "useBackend": false
         },
         {
           "datasource": {
@@ -171,13 +193,13 @@
             "type": "__expr__",
             "uid": "__expr__"
           },
-          "expression": "((($CPUDemandMSPerGET/1000)*($CPUCO2DemandPerCoreMinute/60))+(($MemoryDemandkBytePerGET/1000/1000)*($MemoryCO2DemandPerGBMinute/60)))/$CallCountPerGETOperation",
+          "expression": "((($CPUDemandMSPerOperation/1000)*($CPUCO2EmissionsPerCoreMinute/60))+(($MemoryDemandkBytePerOperation/1000/1000)*($MemoryCO2EmissionsPerGBMinute/60)))/$CallCountPerOperation",
           "hide": false,
-          "refId": "CO2DemandPerServiceInMG",
+          "refId": "CO2EmissionsPerServiceInMG",
           "type": "math"
         }
       ],
-      "title": "CO2Demand per Service GET Operation",
+      "title": "CO2 Emissions per Service getData (HTTP GET) Operation",
       "type": "timeseries"
     },
     {
@@ -191,6 +213,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -204,6 +227,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -262,60 +286,80 @@
             "type": "prometheus",
             "uid": "webstore-metrics"
           },
+          "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "delta(testservice_cpu_time_milliseconds_total{httpmethod=\"POST\"}[1m])",
+          "expr": "delta(cpu_demand_milliseconds_total{httpmethod=\"POST\", service_name=\"quarkus-carbon-emissions-testservice\", apicall=\"postData\"}[1m])",
+          "fullMetaSearch": false,
           "hide": true,
+          "includeNullMetadata": true,
           "legendFormat": "__auto",
           "range": true,
-          "refId": "CPUDemandMSPerGET"
+          "refId": "CPUDemandMSPerOperation",
+          "useBackend": false
         },
         {
           "datasource": {
             "type": "prometheus",
             "uid": "webstore-metrics"
           },
+          "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "delta(testservice_memory_demand_kByte_total{httpmethod=\"POST\"}[1m])",
+          "expr": "delta(memory_demand_kByte_total{httpmethod=\"POST\", apicall=\"postData\", service_name=\"quarkus-carbon-emissions-testservice\"}[1m])",
+          "fullMetaSearch": false,
           "hide": true,
+          "includeNullMetadata": true,
           "legendFormat": "__auto",
           "range": true,
-          "refId": "MemoryDemandkBytePerGET"
+          "refId": "MemoryDemandkBytePerOperation",
+          "useBackend": false
         },
         {
           "datasource": {
             "type": "prometheus",
             "uid": "webstore-metrics"
           },
+          "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "increase(cpu_co2_production_mg_total{region=\"eu_west_1\", provider=\"aws\"}[1m])",
+          "expr": "increase(cpu_co2_emissions_mg_total{region=\"eu_west_1\", provider=\"aws\"}[1m])",
+          "fullMetaSearch": false,
           "hide": true,
+          "includeNullMetadata": true,
           "legendFormat": "__auto",
           "range": true,
-          "refId": "CPUCO2DemandPerCoreMinute"
+          "refId": "CPUCO2EmissionsPerCoreMinute",
+          "useBackend": false
         },
         {
           "datasource": {
             "type": "prometheus",
             "uid": "webstore-metrics"
           },
+          "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "increase(memory_co2_production_mg_total{region=\"eu_west_1\", provider=\"aws\"}[1m])",
+          "expr": "increase(memory_co2_emissions_mg_total{region=\"eu_west_1\", provider=\"aws\"}[1m])",
+          "fullMetaSearch": false,
           "hide": true,
+          "includeNullMetadata": true,
           "legendFormat": "__auto",
           "range": true,
-          "refId": "MemoryCO2DemandPerGBMinute"
+          "refId": "MemoryCO2EmissionsPerGBMinute",
+          "useBackend": false
         },
         {
           "datasource": {
             "type": "prometheus",
             "uid": "webstore-metrics"
           },
+          "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "delta(testservice_call_count_total{httpmethod=\"POST\"}[1m])",
+          "expr": "delta(call_count_total{httpmethod=\"POST\", service_name=\"quarkus-carbon-emissions-testservice\", apicall=\"postData\"}[1m])",
+          "fullMetaSearch": false,
           "hide": true,
+          "includeNullMetadata": true,
           "legendFormat": "__auto",
           "range": true,
-          "refId": "CallCountPerPOSTOperation"
+          "refId": "CallCountPerOperation",
+          "useBackend": false
         },
         {
           "datasource": {
@@ -323,13 +367,13 @@
             "type": "__expr__",
             "uid": "__expr__"
           },
-          "expression": "((($CPUDemandMSPerGET/1000)*($CPUCO2DemandPerCoreMinute/60))+(($MemoryDemandkBytePerGET/1000/1000)*($MemoryCO2DemandPerGBMinute/60)))/$CallCountPerPOSTOperation",
+          "expression": "((($CPUDemandMSPerOperation/1000)*($CPUCO2EmissionsPerCoreMinute/60))+(($MemoryDemandkBytePerOperation/1000/1000)*($MemoryCO2EmissionsPerGBMinute/60)))/$CallCountPerOperation",
           "hide": false,
-          "refId": "CO2DemandPerServiceInMG",
+          "refId": "CO2EmissionsPerServiceInMG",
           "type": "math"
         }
       ],
-      "title": "CO2Demand per Service POST Operation",
+      "title": "CO2 Emissions per Service postData (HTTP POST) Operation",
       "type": "timeseries"
     },
     {
@@ -343,6 +387,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -356,6 +401,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -390,12 +436,12 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 6,
+        "h": 7,
         "w": 10,
-        "x": 6,
+        "x": 0,
         "y": 7
       },
-      "id": 2,
+      "id": 6,
       "options": {
         "legend": {
           "calcs": [],
@@ -414,60 +460,80 @@
             "type": "prometheus",
             "uid": "webstore-metrics"
           },
+          "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "delta(testservice_cpu_time_milliseconds_total{httpmethod=\"DELETE\"}[1m])",
+          "expr": "delta(cpu_demand_milliseconds_total{httpmethod=\"DELETE\", service_name=\"quarkus-carbon-emissions-testservice\", apicall=\"deleteData\"}[1m])",
+          "fullMetaSearch": false,
           "hide": true,
+          "includeNullMetadata": true,
           "legendFormat": "__auto",
           "range": true,
-          "refId": "CPUDemandMSPerDELETE"
+          "refId": "CPUDemandMSPerOperation",
+          "useBackend": false
         },
         {
           "datasource": {
             "type": "prometheus",
             "uid": "webstore-metrics"
           },
+          "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "delta(testservice_memory_demand_kByte_total{httpmethod=\"DELETE\"}[1m])",
+          "expr": "delta(memory_demand_kByte_total{httpmethod=\"DELETE\", apicall=\"deleteData\", service_name=\"quarkus-carbon-emissions-testservice\"}[1m])",
+          "fullMetaSearch": false,
           "hide": true,
+          "includeNullMetadata": true,
           "legendFormat": "__auto",
           "range": true,
-          "refId": "MemoryDemandkBytePerDELETE"
+          "refId": "MemoryDemandkBytePerOperation",
+          "useBackend": false
         },
         {
           "datasource": {
             "type": "prometheus",
             "uid": "webstore-metrics"
           },
+          "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "increase(cpu_co2_production_mg_total{region=\"eu_west_1\", provider=\"aws\"}[1m])",
+          "expr": "increase(cpu_co2_emissions_mg_total{region=\"eu_west_1\", provider=\"aws\"}[1m])",
+          "fullMetaSearch": false,
           "hide": true,
+          "includeNullMetadata": true,
           "legendFormat": "__auto",
           "range": true,
-          "refId": "CPUCO2DemandPerCoreMinute"
+          "refId": "CPUCO2EmissionsPerCoreMinute",
+          "useBackend": false
         },
         {
           "datasource": {
             "type": "prometheus",
             "uid": "webstore-metrics"
           },
+          "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "increase(memory_co2_production_mg_total{region=\"eu_west_1\", provider=\"aws\"}[1m])",
+          "expr": "increase(memory_co2_emissions_mg_total{region=\"eu_west_1\", provider=\"aws\"}[1m])",
+          "fullMetaSearch": false,
           "hide": true,
+          "includeNullMetadata": true,
           "legendFormat": "__auto",
           "range": true,
-          "refId": "MemoryCO2DemandPerGBMinute"
+          "refId": "MemoryCO2EmissionsPerGBMinute",
+          "useBackend": false
         },
         {
           "datasource": {
             "type": "prometheus",
             "uid": "webstore-metrics"
           },
+          "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "delta(testservice_call_count_total{httpmethod=\"DELETE\"}[1m])",
+          "expr": "delta(call_count_total{httpmethod=\"DELETE\", service_name=\"quarkus-carbon-emissions-testservice\", apicall=\"deleteData\"}[1m])",
+          "fullMetaSearch": false,
           "hide": true,
+          "includeNullMetadata": true,
           "legendFormat": "__auto",
           "range": true,
-          "refId": "CallCountPerDELETEOperation"
+          "refId": "CallCountPerOperation",
+          "useBackend": false
         },
         {
           "datasource": {
@@ -475,20 +541,19 @@
             "type": "__expr__",
             "uid": "__expr__"
           },
-          "expression": "((($CPUDemandMSPerDELETE/1000)*($CPUCO2DemandPerCoreMinute/60))+(($MemoryDemandkBytePerDELETE/1000/1000)*($MemoryCO2DemandPerGBMinute/60)))/$CallCountPerDELETEOperation",
+          "expression": "((($CPUDemandMSPerOperation/1000)*($CPUCO2EmissionsPerCoreMinute/60))+(($MemoryDemandkBytePerOperation/1000/1000)*($MemoryCO2EmissionsPerGBMinute/60)))/$CallCountPerOperation",
           "hide": false,
-          "refId": "CO2DemandPerDELETEInMG",
+          "refId": "CO2EmissionsPerServiceInMG",
           "type": "math"
         }
       ],
-      "title": "CO2Demand per Service DELETE Operation",
+      "title": "CO2 Emissions per Service deleteData (HTTP DELETE) Operation",
       "type": "timeseries"
     }
   ],
   "refresh": "",
   "revision": 1,
-  "schemaVersion": 38,
-  "style": "dark",
+  "schemaVersion": 39,
   "tags": [],
   "templating": {
     "list": []
@@ -501,6 +566,6 @@
   "timezone": "",
   "title": "SCI Dashboard Service",
   "uid": "c6bdAE94z",
-  "version": 1,
+  "version": 2,
   "weekStart": ""
 }
