@@ -1514,6 +1514,10 @@ components:
           $ref: '#/components/schemas/EstimationUsedEmissionFactor'
         constituent_gases:
           $ref: '#/components/schemas/EstimationConstituentGases'
+        activity_data:
+          $ref: '#/components/schemas/ActivityData'
+        audit_trail:
+          type: string
       required:
         - co2e
         - co2e_unit
@@ -1521,6 +1525,14 @@ components:
         - co2e_calculation_origin
         - emission_factor
         - constituent_gases
+    ActivityData:
+      type: object
+      properties:
+        activity_value:
+          type: number
+          format: double
+        activity_unit:
+          type: string
     InstanceEstimationEstimateResponse:
       type: object
       properties:
@@ -1541,9 +1553,17 @@ components:
     EstimationUsedEmissionFactor:
       type: object
       properties:
+        name:
+          type: string
         activity_id:
           type: string
+        id:
+          type: string
+        access_type:
+          type: string
         source:
+          type: string
+        source_dataset:
           type: string
         year:
           type: string
@@ -1551,8 +1571,12 @@ components:
           type: string
         category:
           type: string
-        lca_activity:
+        source_lca_activity:
           type: string
+        data_quality_flags:
+          type: array
+          items:
+            type: string
       required:
         - activity_id
         - source
