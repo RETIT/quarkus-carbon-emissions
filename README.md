@@ -27,6 +27,6 @@ Once the service is started, you can issue requests to the following endpoints:
     curl --request POST --url http://localhost:8080/test-rest-endpoint
     curl --request DELETE --url http://localhost:8080/test-rest-endpoint
 
-Once you have issues a few requests to one or more of these endpoints you will see the CO2 emissions for each endpoint in Grafana:
+Once you have issued a few requests to one or more of these endpoints you will see the CO2 emissions for each endpoint in Grafana:
 
 ![Screenshot of the Grafana Dashboard](grafana/dashboard_screenshot.png)
