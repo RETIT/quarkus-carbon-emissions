@@ -17,7 +17,7 @@ Linux shell:
     export CLIMATIQ_API_KEY=<your_climatiq_api_key>
     ./mvnw quarkus:dev
 
-In order to visualize the data you need to import the dashboard defined in the following file in your grafana instance following the documentation provided here https://grafana.com/docs/grafana/latest/dashboards/build-dashboards/import-dashboards/:
+In order to visualize the data you need to import the dashboard defined in the following file in your grafana instance following the documentation provided here https://grafana.com/docs/grafana/latest/dashboards/build-dashboards/import-dashboards/. You can reach the Grafana UI using http://localhost:3000/grafana:
     
     ./grafana/dashboard.json
 

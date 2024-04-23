@@ -113,7 +113,6 @@ public class OpenTelemetryService {
                 .add(1, attributes);
     }
 
-
     /**
      * Returns the OpenTelemetry Meter that is required to publish OpenTelemetry metrics.
      *
