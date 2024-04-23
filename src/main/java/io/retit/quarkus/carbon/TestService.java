@@ -10,7 +10,7 @@ import java.util.Random;
 @ApplicationScoped
 public class TestService {
 
-    public void veryComplexBusinessFunction() throws InterruptedException {
+    public void veryComplexBusinessFunction() {
         naiveSortingWithONSquareComplexity(generateRandomInputArray(30000));
     }
 
